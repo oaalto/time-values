@@ -16,8 +16,7 @@ values = TimeValues.fromSeconds 60
 minutes = values.minutes
 
 The functions fromMilliseconds, fromSeconds and fromMinutes split the given
-value into its compound elements, namely: ms, secs, mins, hours, days, weeks,
-months and years.
+value into its compound elements, namely: ms, secs, mins, hours, days, weeks.
 
 -}
 
@@ -33,8 +32,6 @@ type alias TimeValues =
     , hours : Int
     , days : Int
     , weeks : Int
-    , months : Int
-    , years : Int
     }
 
 
@@ -57,23 +54,11 @@ fromSeconds secs =
 fromMilliseconds : Int -> TimeValues
 fromMilliseconds ms =
     let
-        years =
-            ms // msYears
-
-        yearsRem =
-            modBy msYears ms
-
-        months =
-            yearsRem // msMonths
-
-        monthsRem =
-            modBy msMonths yearsRem
-
         weeks =
-            monthsRem // msWeeks
+            ms // msWeeks
 
         weeksRem =
-            modBy msWeeks monthsRem
+            modBy msWeeks ms
 
         days =
             weeksRem // msDays
@@ -102,4 +87,4 @@ fromMilliseconds ms =
         milliseconds =
             secondsRem
     in
-    TimeValues milliseconds seconds minutes hours days weeks months years
+    TimeValues milliseconds seconds minutes hours days weeks
