@@ -1,22 +1,31 @@
-module Time.Values exposing (TimeValues, fromMilliseconds, fromMinutes, fromSeconds)
+module Time.Values exposing
+    ( TimeValues
+    , fromMilliseconds, fromSeconds, fromMinutes
+    )
 
 {-| Extract time values from numbers.
 
-    import Time.Values as TimeValues exposing (TimeValues)
+@docs TimeValues
 
-    values = TimeValues.fromSeconds 60
+@docs fromMilliseconds, fromSeconds, fromMinutes
 
-    minutes = values.minutes
+import Time.Values as TimeValues exposing (TimeValues)
 
-    The functions fromMilliseconds, fromSeconds and fromMinutes split the given
-    value into its compound elements, namely: ms, secs, mins, hours, days, weeks,
-    months and years.
+values = TimeValues.fromSeconds 60
+
+minutes = values.minutes
+
+The functions fromMilliseconds, fromSeconds and fromMinutes split the given
+value into its compound elements, namely: ms, secs, mins, hours, days, weeks,
+months and years.
 
 -}
 
 import Time.TimeInMs exposing (..)
 
 
+{-| Container for the compound elements.
+-}
 type alias TimeValues =
     { milliseconds : Int
     , seconds : Int
@@ -29,16 +38,22 @@ type alias TimeValues =
     }
 
 
+{-| Extracts the compound elements from the given minutes.
+-}
 fromMinutes : Int -> TimeValues
 fromMinutes mins =
     mins * msMins |> fromMilliseconds
 
 
+{-| Extracts the compound elements from the given seconds.
+-}
 fromSeconds : Int -> TimeValues
 fromSeconds secs =
     secs * msSecs |> fromMilliseconds
 
 
+{-| Extracts the compound elements from the given milliseconds.
+-}
 fromMilliseconds : Int -> TimeValues
 fromMilliseconds ms =
     let
